@@ -1,0 +1,63 @@
+This is a list of codenames for the project gym-regiment
+list consist of flightless birds by thier latin species name
+* means that the codename has already been taken
+
+Anas aucklandica *
+Anas nesiotis
+Aptenodytes forsteri
+Aptenodytes patagonicus
+Apteryx australis
+Apteryx haastil
+Apteryx mantelli
+Apteryx owenii
+Apteryx rowi
+Aramidopsis plateni
+Atlantisia rogersi
+Casuarius bennetti
+Casuarius casuarius
+Casuarius unappendiculatus
+Dromaius novaehollandiae
+Eudyptes chrysocome
+Eudyptes chrysolophus
+Eudyptes moseleyi
+Eudyptes pachyrhynchus
+Eudyptes robustus
+Eudyptes schlegeli
+Eudyptula minor
+Fulica gigantea
+Gallinula mortierii
+Gallinula nesiotis
+Gallinula pacifica
+Gallinula silvestris
+Gallirallus australis
+Gallirallus calayanensis
+Gallirallus insignis
+Gallirallus lafresnayanus
+Gallirallus okinawae
+Gallirallus owstoni
+Gallirallus rovianae
+Gallirallus sylvestris
+Habroptila wallacii
+Hypotaenidia woodfordi
+Megacrex inepta
+Megadyptes antpodes
+Phalacrocorax harris
+Podiceps taczanowskii
+Porzana atra
+Prophyrio hochstetteri
+Pygoscelis adeliae
+Pygoscelis antarcticus
+Pygoscelis papua
+Rhea americana
+Rhea pennata
+Rollandia microptera
+Spheniscus demersus
+Spheniscus humboldti
+Spheniscus magellanicus
+Spheniscus mendiculus
+Strigops habroptila
+Struthio camelus
+Struthio molybdophanes
+Tachyeres brachypterus
+Tachyeres leucocephalus
+Tachyeres pteneres
