@@ -1,0 +1,21 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "env": {
+    "HEROKU_DEBUG": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "name": "gym-regiment",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
