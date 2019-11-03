@@ -1,21 +1,29 @@
 {
-  "addons": [
-
-  ],
-  "buildpacks": [
-    {
-      "url": "heroku/python"
-    }
-  ],
-  "env": {
-    "HEROKU_DEBUG": {
-      "required": true
-    }
-  },
-  "formation": {
-  },
-  "name": "gym-regiment",
-  "scripts": {
-  },
-  "stack": "heroku-18"
+   "name": "gym_regiment",
+   "env": {
+      "SECRET_KEY": {
+         "description": "SECRET_KEY.",
+         "generator": "secret"
+      },
+      "FLASK_APP": {
+         "description": "FLASK_APP.",
+         "value": "autoapp.py"
+      }
+   },
+   "buildpacks": [
+      {
+         "url": "heroku/python"
+      }
+   ],
+   "addons": [
+      {
+         "plan": "heroku-postgresql:hobby-dev",
+         "options": {
+            "version": "12"
+         }
+      }
+   ],
+   "formation":{},
+   "scripts":{},
+   "stack": "heroku-18"
 }
