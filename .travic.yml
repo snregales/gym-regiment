@@ -8,5 +8,9 @@ python:
 install:
   - pip install pipenv
   - pipenv update
-script:
-  - "pytest src/tests/test.py"
+jobs:
+  include:
+    stage: test
+    name: "Linting"
+    script: pylint */*.py
+    script: pytest
