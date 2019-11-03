@@ -19,11 +19,11 @@
       {
          "plan": "heroku-postgresql:hobby-dev",
          "options": {
-            "version": "12"
+            "version": "11"
          }
       }
    ],
    "formation":{},
-   "scripts":{},
+   "scripts":{"test": "pytest"},
    "stack": "heroku-18"
 }
