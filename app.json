@@ -24,11 +24,6 @@
       }
    ],
    "formation":{},
-   "scripts":{},
-   "stack": "heroku-18",
-   "environments":{
-      "test": {
-         "scripts":{"test": "nose test"}
-      }
-   }
+   "scripts":{"test": "pytest"},
+   "stack": "heroku-18"
 }
