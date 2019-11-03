@@ -25,5 +25,8 @@
    ],
    "formation":{},
    "scripts":{},
-   "stack": "heroku-18"
+   "stack": "heroku-18",
+   "test": {
+      "scripts":{"test": "nose test"}
+   }
 }
