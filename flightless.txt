@@ -3,7 +3,7 @@ list consist of flightless birds by thier latin species name
 * means that the codename has already been taken
 
 Anas aucklandica *
-Anas nesiotis
+Anas nesiotis *
 Aptenodytes forsteri
 Aptenodytes patagonicus
 Apteryx australis
