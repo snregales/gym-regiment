@@ -9,4 +9,9 @@ python:
 install:
   - pip install pipenv
   - pipenv update
-script: pytest
+jobs:
+  include:
+    - stage: Lint Check
+    - script: pipenv run flask lint 
+    - stage: Test
+    - script: pipenv run flask test
