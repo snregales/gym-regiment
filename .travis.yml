@@ -10,6 +10,7 @@ env:
   global:
     - FLASK_APP="autoapp.py"
     - DATABASE_URL="sqlite:////tmp/dev.db"
+    - SECRET_KEY="not-so-secret"
 install:
   - pip install pipenv
   - pipenv install
