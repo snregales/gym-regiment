@@ -4,8 +4,8 @@
 import logging
 
 import pytest
-from webtest import TestApp
 from flask import Flask
+from webtest import TestApp
 
 from src.app import create_app
 
