@@ -13,7 +13,7 @@ env:
     - SECRET_KEY="not-so-secret"
 install:
   - pip install pipenv
-  - pipenv install
+  - pipenv install --dev
 script: 
   - pipenv run flask lint 
   - pipenv run flask test
