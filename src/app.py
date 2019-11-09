@@ -7,7 +7,7 @@ from flask import Flask
 
 from src import graphql
 from src.config.commands import lint, test
-from src.config.extensions import DB
+from src.config.extensions import DB, MIGRATE  # Database extensions
 
 
 def create_app(config_object: str = "src.config.settings") -> Flask:
@@ -25,6 +25,7 @@ def create_app(config_object: str = "src.config.settings") -> Flask:
     configure_logger(app)
     register_commands(app)
     register_blueprints(app)
+    register_extensions(app)
     return app
 
 
@@ -36,6 +37,7 @@ def register_extensions(app: Flask) -> bool:
     :return :type bool: is all extensions registered
     """
     DB.init_app(app)
+    MIGRATE.init_app(app, DB)
     return True
 
 

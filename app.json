@@ -24,6 +24,6 @@
       }
    ],
    "formation":{},
-   "scripts":{"test": "pytest"},
+   "scripts":{"test": "pipenv run flask test"},
    "stack": "heroku-18"
 }
