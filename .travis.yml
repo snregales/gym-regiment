@@ -8,9 +8,10 @@ python:
   - 3.7
 env:
   - FLASK_APP="autoapp.py"
+  - DATABASE_URL="sqlite:////tmp/dev.db"
 install:
   - pip install pipenv
-  - pipenv install --dev
+  - pipenv install
 script: 
   - pipenv run flask lint 
   - pipenv run flask test
