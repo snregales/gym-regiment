@@ -7,6 +7,7 @@ from flask import Flask
 
 from src import graphql
 from src.config.commands import lint, test
+from src.config.extensions import DB
 
 
 def create_app(config_object: str = "src.config.settings") -> Flask:
@@ -25,6 +26,17 @@ def create_app(config_object: str = "src.config.settings") -> Flask:
     register_commands(app)
     register_blueprints(app)
     return app
+
+
+def register_extensions(app: Flask) -> bool:
+    """
+    Register extenstion for flask to the flask application.
+
+    :param app :type Flask: Flask application to register blueprints to
+    :return :type bool: is all extensions registered
+    """
+    DB.init_app(app)
+    return True
 
 
 def register_blueprints(app: Flask) -> bool:

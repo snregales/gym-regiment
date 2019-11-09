@@ -24,6 +24,10 @@ def app():
 
 
 @pytest.fixture
-def testapp(app) -> TestApp:  # pylint: disable=redefined-outer-name
-    """Create Webtest app."""
+def testapp(app: Flask) -> TestApp:  # pylint: disable=redefined-outer-name
+    """
+    Create Webtest app.
+
+    :param app :type Flask: WGSI application to be use for testing purposes
+    """
     return TestApp(app)
