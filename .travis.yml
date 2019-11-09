@@ -9,11 +9,6 @@ python:
 install:
   - pip install pipenv
   - pipenv install --dev
-jobs:
-  include:
-    - stage: "Quality Check"
-    - name: "Lint"
-    - script: pipenv run flask lint 
-    - stage: "Tests"
-    - name: "Unit Tests"
-    - script: pipenv run flask test
+script: 
+  - pipenv run flask lint 
+  - pipenv run flask test
