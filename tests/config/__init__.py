@@ -1,1 +1,1 @@
-"""Configuration package for the testing"""
+"""Configuration package for the testing."""
