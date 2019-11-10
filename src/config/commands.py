@@ -52,8 +52,7 @@ def test(cov):
 )
 def lint(fix_imports, check):
     """Lint and check code style with black, flake8 and isort."""
-    skip = ["node_modules", "requirements", "migrations", 
-            "__pycache__", "htmlcov"]
+    skip = ["node_modules", "requirements", "migrations", "__pycache__", "htmlcov"]
     root_files = glob("*.py")
     root_directories = [
         name for name in next(os.walk("."))[1] if not name.startswith(".")

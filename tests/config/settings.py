@@ -3,7 +3,7 @@
 ENV: str = "development"
 TESTING: bool = True
 SQLALCHEMY_DATABASE_URI: str = "sqlite://"
-SECRET_KEY: str = "not_so_secrete" # nosec
+SECRET_KEY: str = "not_so_secrete"  # nosec
 
 BCRYPT_LOG_ROUNDS = (
     4

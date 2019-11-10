@@ -4,7 +4,6 @@ import datetime as dt
 
 from flask_login import UserMixin
 
-from src.config.extensions import BCRYPT
 from src.config.database import (
     COLUMN,
     DB,
@@ -13,6 +12,7 @@ from src.config.database import (
     SurrogatePK,
     reference_col,
 )
+from src.config.extensions import BCRYPT
 
 
 class Role(SurrogatePK, Model):

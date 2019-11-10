@@ -9,8 +9,8 @@ from webtest import TestApp
 
 from src.app import create_app
 from src.config.database import DB
-
 from tests.config.factories import UserFactory
+
 
 @pytest.fixture
 def app():
@@ -33,6 +33,7 @@ def testapp(app: Flask) -> TestApp:  # pylint: disable=redefined-outer-name
     :param app :type Flask: WGSI application to be use for testing purposes
     """
     return TestApp(app)
+
 
 @pytest.fixture
 def db(app):  # pylint: disable=redefined-outer-name

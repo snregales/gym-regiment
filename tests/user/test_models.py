@@ -5,7 +5,6 @@ import datetime as dt
 import pytest
 
 from src.user.models import Role, User
-
 from tests.config.factories import UserFactory
 
 
