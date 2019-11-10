@@ -36,7 +36,7 @@ class TestUser:
     def test_factory(self, db) -> None:
         """
         Test user factory.
-        
+
         :param db :type fixture
         """
         user = UserFactory(password="myprecious")
