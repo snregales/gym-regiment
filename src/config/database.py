@@ -2,7 +2,7 @@
 """Database module, including the SQLAlchemy database object and DB-related utilities."""
 from typing import Any
 
-from .extensions import DB
+from src.config.extensions import DB
 
 # Alias common SQLAlchemy names
 COLUMN = DB.Column
