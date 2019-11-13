@@ -6,6 +6,7 @@ import sys
 from flask import Flask
 
 from src import graphql
+from src.user.models import User
 from src.config.commands import lint, test
 from src.config.extensions import BCRYPT, DB, MIGRATE  # Database extensions
 
@@ -26,6 +27,7 @@ def create_app(config_object: str = "src.config.settings") -> Flask:
     register_commands(app)
     register_blueprints(app)
     register_extensions(app)
+    register_shellcontext(app)
     return app
 
 
@@ -39,6 +41,18 @@ def register_extensions(app: Flask) -> bool:
     DB.init_app(app)
     MIGRATE.init_app(app, DB)
     BCRYPT.init_app(app)
+    return True
+
+
+def register_shellcontext(app: Flask) -> bool:
+    """
+    Register shell context objects.
+
+    :param app :type Flask: Flask application to register blueprints to
+    :return :type bool: is all contexts registered
+    """
+
+    app.shell_context_processor(lambda : {"db": DB, "User": User})
     return True
 
 
