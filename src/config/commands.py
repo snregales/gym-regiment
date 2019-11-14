@@ -3,7 +3,7 @@
 import os
 import sys
 from glob import glob
-from subprocess import call
+from subprocess import call  # nosec
 from typing import List
 
 import click
@@ -65,7 +65,7 @@ def lint(fix_imports, check):
         """Execute a checking tool with its arguments."""
         command_line = list(args) + files_and_directories
         click.echo("{}: {}".format(description, " ".join(command_line)))
-        return_code = call(command_line)
+        return_code = call(command_line)  # nosec
         if return_code != 0:
             sys.exit(return_code)
 

@@ -6,9 +6,9 @@ import sys
 from flask import Flask
 
 from src import graphql
-from src.user.models import User
 from src.config.commands import lint, test
 from src.config.extensions import BCRYPT, DB, MIGRATE  # Database extensions
+from src.user.models import User
 
 
 def create_app(config_object: str = "src.config.settings") -> Flask:
@@ -52,7 +52,7 @@ def register_shellcontext(app: Flask) -> bool:
     :return :type bool: is all contexts registered
     """
 
-    app.shell_context_processor(lambda : {"db": DB, "User": User})
+    app.shell_context_processor(lambda: {"db": DB, "User": User})
     return True
 
 
