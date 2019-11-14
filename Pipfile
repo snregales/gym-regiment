@@ -51,6 +51,10 @@ Flask-Caching = ">=1.0.0"
 Flask-DebugToolbar = "==0.10.1"
 # Environment variable parsing
 environs = "==6.0.0"
+# Deployment
+gevent = "==1.4.0"
+gunicorn = ">=19.1.1"
+supervisor = "==4.1.0"
 
 [requires]
 python_version = "3.7"
