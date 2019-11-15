@@ -5,18 +5,23 @@ Since this is going to be a graphQL application,
 The only route will be /graphql
 """
 
-from flask import Blueprint, render_template, current_app
+from flask_graphql import GraphQLView
 
-BP = Blueprint("graphql", __name__, url_prefix="/graphql", static_folder="../static")
+app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schema, graphiql=True))
 
 
-@BP.route("/")
-def index():
-    """
-    When graphql route is requested funtion returns a str response.
+# from flask import Blueprint, render_template, current_app
 
-    :return :type str: responds string
-    """
+# BP = Blueprint("graphql", __name__, url_prefix="/graphql", static_folder="../static")
 
-    current_app.logger.info("Gym Regiment's graphql page")
-    return render_template("graphql/index.html")
+
+# @BP.route("/")
+# def index():
+#     """
+#     When graphql route is requested funtion returns a str response.
+
+#     :return :type str: responds string
+#     """
+
+#     current_app.logger.info("Gym Regiment's graphql page")
+#     return render_template("graphql/index.html")
