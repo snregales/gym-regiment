@@ -1,3 +1,1 @@
-# -*- coding: utf-8 -*-
-"""The graphql module."""
-from . import views  # noqa
+"""Graphql module for all graphene flask tools."""
