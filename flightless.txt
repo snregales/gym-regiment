@@ -4,7 +4,7 @@ list consist of flightless birds by thier latin species name
 
 Anas aucklandica *
 Anas nesiotis *
-Aptenodytes forsteri
+Aptenodytes forsteri *
 Aptenodytes patagonicus
 Apteryx australis
 Apteryx haastil
