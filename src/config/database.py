@@ -56,7 +56,7 @@ class CRUDMixin:
         return commit and DB.session.commit()
 
 
-class Model(DB.Model):
+class Model(DB.Model, CRUDMixin):
     """Abstract Base model class."""
 
     __abstract__ = True
