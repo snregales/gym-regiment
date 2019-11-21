@@ -57,7 +57,8 @@ class CRUDMixin:
 
 
 class Model(DB.Model):
-    """Abstract Base model class"""
+    """Abstract Base model class."""
+
     __abstract__ = True
 
 

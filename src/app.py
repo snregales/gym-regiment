@@ -5,10 +5,11 @@ import sys
 
 from flask import Flask
 
-from src.graphql.view import VIEW
 from src.config.commands import lint, test
 from src.config.extensions import BCRYPT, DB, MIGRATE  # Database extensions
+from src.graphql.view import VIEW
 from src.user.models import User
+
 
 def create_app(config_object: str = "src.config.settings") -> Flask:
     """
@@ -33,12 +34,13 @@ def create_app(config_object: str = "src.config.settings") -> Flask:
 def register_graphql(app: Flask) -> bool:
     """
     Register graphql to the flask application.
+
     this includes view, schema with all register schemas
 
     :param app :type Flask: Flask application to add graphql view to
     :return :type bool: is all extensions registered
     """
-    app.add_url_rule('/graphql', view_func=VIEW)
+    app.add_url_rule("/graphql", view_func=VIEW)
     return True
 
 
@@ -65,7 +67,6 @@ def register_shellcontext(app: Flask) -> bool:
 
     app.shell_context_processor(lambda: {"db": DB, "User": User})
     return True
-
 
 
 def register_commands(app: Flask) -> bool:

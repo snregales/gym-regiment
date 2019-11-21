@@ -18,7 +18,9 @@ PROJECT_ROOT = os.path.join(
 )
 TEST_PATH = os.path.join(PROJECT_ROOT, "tests")
 FLASK_ENV = ENV.str("FLASK_ENV", default="production")
-DEBUG = FLASK_ENV == "development" # if flask environment is development set debug to True
+DEBUG = (
+    FLASK_ENV == "development"
+)  # if flask environment is development set debug to True
 SQLALCHEMY_DATABASE_URI = ENV.str("DATABASE_URL")
 SECRET_KEY = ENV.str("SECRET_KEY")
 BCRYPT_LOG_ROUNDS = ENV.int("BCRYPT_LOG_ROUNDS", default=13)
