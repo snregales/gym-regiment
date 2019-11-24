@@ -34,6 +34,7 @@ Flask = "==1.1.1"
 Werkzeug = "==0.16.0"
 click = ">=5.0"
 # GraphQl
+flask-graphql-auth = "*"
 flask-graphql = "*"
 graphene-sqlalchemy = "*"
 # Database
