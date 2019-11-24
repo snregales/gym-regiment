@@ -3,7 +3,7 @@
 import logging
 import sys
 
-from flask import Flask
+from flask import Flask, redirect, url_for
 
 from src.config.commands import lint, test
 from src.config.extensions import BCRYPT, DB, MIGRATE  # Database extensions
@@ -36,11 +36,15 @@ def register_graphql(app: Flask) -> bool:
     Register graphql to the flask application.
 
     this includes view, schema with all register schemas
+    and make index route redirect to /graphql route
 
     :param app :type Flask: Flask application to add graphql view to
     :return :type bool: is all extensions registered
     """
-    app.add_url_rule("/graphql", view_func=VIEW)
+    app.add_url_rule(
+        "/", view_func=lambda: redirect(url_for("graphql"))
+    )  # register and redirect index route to graphql
+    app.add_url_rule("/graphql", view_func=VIEW)  # register graphql
     return True
 
 
