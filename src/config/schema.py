@@ -8,11 +8,13 @@ from src.user.query import Query as UserQuery
 
 class Query(UserQuery, ObjectType):
     """All GraphQL Queries in project."""
+
     pass
 
 
 class Mutation(UserMutation, ObjectType):
     """All GraphQL Mutations in project."""
+
     pass
 
 
