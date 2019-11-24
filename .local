@@ -1,0 +1,14 @@
+# Environment variable overrides for local development
+FLASK_APP=autoapp.py
+FLASK_DEBUG=1
+FLASK_ENV=development
+GUNICORN_WORKERS=1
+LOG_LEVEL=debug
+SECRET_KEY=not-so-secret
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=gym_regiment
+POSTGRES_USER=vBzlUfohmSEpsoMQKHXPwGaKkHzvZbxZ
+POSTGRES_PASSWORD=PniJR6nk1FyVAMc0Ci9Y5GEEffKADfxd5qUaz0az5JsG8smiahzgcmjcqSah7i5v
+DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+# DATABASE_URL=sqlite:////tmp/dev.db
