@@ -1,11 +1,11 @@
 """User query module."""
 
-from graphene import List, ObjectType
+from graphene import List
 
 from src.user.schema import Role, User
 
 
-class Query(ObjectType):
+class Query:
     """All querable schemas are register here."""
 
     users = List(User)
