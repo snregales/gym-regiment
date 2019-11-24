@@ -4,10 +4,11 @@ import logging
 import sys
 
 from flask import Flask, redirect, url_for
+from flask_graphql import GraphQLView
 
 from src.config.commands import lint, test
 from src.config.extensions import BCRYPT, DB, MIGRATE  # Database extensions
-from src.graphql.view import VIEW
+from src.config.schema import SCHEMA
 from src.user.models import User
 
 
@@ -44,7 +45,10 @@ def register_graphql(app: Flask) -> bool:
     app.add_url_rule(
         "/", view_func=lambda: redirect(url_for("graphql"))
     )  # register and redirect index route to graphql
-    app.add_url_rule("/graphql", view_func=VIEW)  # register graphql
+    app.add_url_rule(
+        "/graphql",
+        view_func=GraphQLView.as_view("graphql", schema=SCHEMA, graphiql=True),
+    )  # register graphql
     return True
 
 

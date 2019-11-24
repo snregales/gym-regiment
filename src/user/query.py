@@ -1,6 +1,6 @@
-"""Query module where all project queries will be register."""
+"""User query module."""
 
-from graphene import List, ObjectType, Schema
+from graphene import List, ObjectType
 
 from src.user.schema import Role, User
 
@@ -28,6 +28,3 @@ class Query(ObjectType):
         :return :type :all users that satisfies info
         """
         return Role.get_query(info).all()
-
-
-SCHEMA = Schema(query=Query)
