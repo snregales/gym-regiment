@@ -7,7 +7,7 @@ from flask import Flask, redirect, url_for
 from flask_graphql import GraphQLView
 
 from src.config.commands import lint, test
-from src.config.extensions import BCRYPT, DB, MIGRATE  # Database extensions
+from src.config.extensions import AUTH, BCRYPT, DB, MIGRATE  # Database extensions
 from src.config.schema import SCHEMA
 from src.user.models import User
 
@@ -62,6 +62,7 @@ def register_extensions(app: Flask) -> bool:
     DB.init_app(app)
     MIGRATE.init_app(app, DB)
     BCRYPT.init_app(app)
+    AUTH.init_app(app)
     return True
 
 

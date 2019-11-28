@@ -2,17 +2,19 @@
 
 from graphene import ObjectType, Schema
 
-from src.user.mutation import Mutation as UserMutation
+from src.token.mutation import Mutations as TokenMutation
+from src.token.query import Query as TokenQuery
+from src.user.mutation import Mutations as UserMutation
 from src.user.query import Query as UserQuery
 
 
-class Query(UserQuery, ObjectType):
+class Query(UserQuery, TokenQuery, ObjectType):
     """All GraphQL Queries in project."""
 
     pass
 
 
-class Mutation(UserMutation, ObjectType):
+class Mutation(UserMutation, TokenMutation, ObjectType):
     """All GraphQL Mutations in project."""
 
     pass

@@ -74,7 +74,7 @@ class CreateRole(SurrogatePK, Mutation):
         return CreateRole(id=role.id, name=role.name)
 
 
-class Mutation:
+class Mutations:
     """Mutations used for user module."""
 
     create_user = CreateUser.Field()
