@@ -32,7 +32,7 @@ class Query:
         :param info :type ResolveInfo: desired response data
         :return :type User
         """
-        return UserModel.query.filter(UserModel.username == get_jwt_identity()).first()
+        return UserModel.query.filter(UserModel.email == get_jwt_identity()).first()
 
     # pylint: disable=no-self-use
     def resolve_users(self, info: ResolveInfo) -> List[User]:

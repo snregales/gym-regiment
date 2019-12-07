@@ -28,25 +28,25 @@ class AuthMutation(Mutation):
     class Arguments:
         """Data you can send to the server."""
 
-        username = String()
+        email = String()
         password = String()
 
     @classmethod
     def mutate(
-        cls, _, info: ResolveInfo, username: str, password: str
+        cls, _, info: ResolveInfo, email: str, password: str
     ) -> "AuthMutation":
         """
         Mutate is a class method that creates an access and refresh tokens for the given user.
 
         :param _ :type...
         :param info :type ResolveType
-        :param username :type str: User object's username
+        :param email :type str: User object's email
         :param password :type str: User object's password
         :return :type AuthMutation (self)
         """
         return AuthMutation(
-            access_token=create_access_token(username),
-            refresh_token=create_refresh_token(username),
+            access_token=create_access_token(email),
+            refresh_token=create_refresh_token(email),
         )
 
 

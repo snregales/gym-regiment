@@ -40,25 +40,21 @@ class User(UserMixin, SurrogatePK, Model):
     """A user of the app."""
 
     __tablename__ = "users"
-    username = COLUMN(DB.String(80), unique=True, nullable=False)
-    email = COLUMN(DB.String(80), unique=True, nullable=False)
+    email = COLUMN(DB.String(80), primary_key=True, nullable=False)
     #: The hashed password
     password = COLUMN(DB.LargeBinary(128), nullable=True)
     created_at = COLUMN(DB.DateTime, nullable=False, default=dt.datetime.utcnow)
-    first_name = COLUMN(DB.String(30), nullable=True)
-    last_name = COLUMN(DB.String(30), nullable=True)
     active = COLUMN(DB.Boolean(), default=False)
     is_admin = COLUMN(DB.Boolean(), default=False)
 
-    def __init__(self, username: str, email: str, password: str = None, **kwargs):
+    def __init__(self, email: str, password: str = None, **kwargs):
         """
         Create instance.
 
-        :param username :type str: username of the user instance
         :param email :type str:  email of the user instance
         :param password :type str: none hashed version of user instance's password :default None
         """
-        DB.Model.__init__(self, username=username, email=email, **kwargs)
+        DB.Model.__init__(self, email=email, **kwargs)
         if password:
             self.set_password(password)
         else:
@@ -88,7 +84,7 @@ class User(UserMixin, SurrogatePK, Model):
 
         :return :type str
         """
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.email}"
 
     def __repr__(self) -> str:
         """
@@ -96,4 +92,4 @@ class User(UserMixin, SurrogatePK, Model):
 
         :return :type str
         """
-        return f"<User({self.username!r})>"
+        return f"<User({self.email!r})>"
