@@ -22,14 +22,14 @@ class TestUser:
 
     def test_created_at_defaults_to_datetime(self) -> None:
         """Test creation date."""
-        user = User(username="foo", email="foo@bar.com")
+        user = User(email="foo@bar.com")
         user.save()
         assert bool(user.created_at)
         assert isinstance(user.created_at, dt.datetime)
 
     def test_password_is_nullable(self) -> None:
         """Test null password."""
-        user = User(username="foo", email="foo@bar.com")
+        user = User(email="foo@bar.com")
         user.save()
         assert user.password is None
 
@@ -41,7 +41,6 @@ class TestUser:
         """
         user = UserFactory(password="myprecious")
         db.session.commit()
-        assert bool(user.username)
         assert bool(user.email)
         assert bool(user.created_at)
         assert user.is_admin is False
@@ -50,7 +49,7 @@ class TestUser:
 
     def test_check_password(self) -> None:
         """Check password."""
-        user = User.create(username="foo", email="foo@bar.com", password="foobarbaz123")
+        user = User.create(email="foo@bar.com", password="foobarbaz123")
         assert user.check_password("foobarbaz123") is True
         assert user.check_password("barfoobaz") is False
 
