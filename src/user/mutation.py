@@ -27,7 +27,7 @@ class CreateUser(SurrogatePK, Mutation):
 
     def mutate(
         self, info: ResolveInfo, username: str, email: str, password: str, **kwargs
-    ) -> "CreateUser": # pylint: disable=no-self-use
+    ) -> "CreateUser":  # pylint: disable=no-self-use
         """
         Creates a user in the database using the data sent by the user.
 
@@ -61,7 +61,9 @@ class CreateRole(SurrogatePK, Mutation):
 
         name = String()
 
-    def mutate(self, info: ResolveInfo, name: str, **kwargs) -> "CreateRole": # pylint: disable=no-self-use
+    def mutate(
+        self, info: ResolveInfo, name: str, **kwargs
+    ) -> "CreateRole":  # pylint: disable=no-self-use
         """
         Creates a user in the database using the data sent by the user.
 

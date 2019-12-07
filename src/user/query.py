@@ -24,6 +24,7 @@ class Query:
     users = GraphList(User)
     roles = GraphList(Role)
 
+    # pylint: disable=no-self-use
     @query_header_jwt_required
     def resolve_me(self, info: ResolveInfo) -> User:
         """Resolve the User object query that is given by info.
@@ -33,11 +34,8 @@ class Query:
         """
         return UserModel.query.filter(UserModel.username == get_jwt_identity()).first()
 
-    def resolve_users(
-        self, info: ResolveInfo
-    ) -> List[
-        User
-    ]:  # pylint: disable=no-self-use
+    # pylint: disable=no-self-use
+    def resolve_users(self, info: ResolveInfo) -> List[User]:
         # self is needed, in order extract user's desired response data
         """
         Resolve the User query list that is given by info.
@@ -47,11 +45,8 @@ class Query:
         """
         return User.get_query(info).all()
 
-    def resolve_roles(
-        self, info: ResolveInfo
-    ) -> List[
-        Role
-    ]:  # pylint: disable=no-self-use 
+    # pylint: disable=no-self-use
+    def resolve_roles(self, info: ResolveInfo) -> List[Role]:
         # self is needed, in order extract user's desired response data
         """
         Resolve the Role query that is given by info.

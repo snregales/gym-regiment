@@ -12,10 +12,9 @@ class Query:
 
     protected = Field(ProtectedUnion)
 
+    # pylint: disable=no-self-use
     @query_header_jwt_required
-    def resolve_protected(
-        self, info: ResolveInfo
-    ) -> MessageField:  # pylint: disable=no-self-use
+    def resolve_protected(self, info: ResolveInfo) -> MessageField:
         # self is needed, in order extract user's desired response data
         """
         Resolver for protected, user authentication is required.
