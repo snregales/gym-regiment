@@ -25,11 +25,11 @@ class Query:
     roles = GraphList(Role)
 
     @query_header_jwt_required
-    def resolve_me(self, info) -> User:
+    def resolve_me(self, info: ResolveInfo) -> User:
         """Resolve the User object query that is given by info.
 
-        :param info :type :rules to query by
-        :return :type User :all users that satisfies info
+        :param info :type ResolveInfo: desired response data
+        :return :type User
         """
         return UserModel.query.filter(UserModel.username == get_jwt_identity()).first()
 
@@ -37,12 +37,13 @@ class Query:
         self, info: ResolveInfo
     ) -> List[
         User
-    ]:  # nosec self is needed, in order extract user's desired response data
+    ]:  # pylint: disable=no-self-use
+        # self is needed, in order extract user's desired response data
         """
         Resolve the User query list that is given by info.
 
         :param info :type ResolveInfo: desired response data
-        :return :type List[User] :all users that satisfies info
+        :return :type List[User]
         """
         return User.get_query(info).all()
 
@@ -50,11 +51,12 @@ class Query:
         self, info: ResolveInfo
     ) -> List[
         Role
-    ]:  # nosec self is needed, in order extract user's desired response data
+    ]:  # pylint: disable=no-self-use 
+        # self is needed, in order extract user's desired response data
         """
         Resolve the Role query that is given by info.
 
         :param info :type ResolveInfo: desired response data
-        :return :type List[User]: all users that satisfies info
+        :return :type List[Role]:
         """
         return Role.get_query(info).all()

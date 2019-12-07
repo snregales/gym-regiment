@@ -15,7 +15,8 @@ class Query:
     @query_header_jwt_required
     def resolve_protected(
         self, info: ResolveInfo
-    ) -> MessageField:  # nosec self is needed, in order extract user's desired response data
+    ) -> MessageField:  # pylint: disable=no-self-use
+        # self is needed, in order extract user's desired response data
         """
         Resolver for protected, user authentication is required.
 

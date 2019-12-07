@@ -1,5 +1,6 @@
 """All Mutations from user module."""
 from graphene import Mutation, String
+from graphql.execution.base import ResolveInfo
 
 from src.config.database import SurrogatePK
 from src.user.models import Role, User
@@ -25,12 +26,12 @@ class CreateUser(SurrogatePK, Mutation):
         last_name = String()
 
     def mutate(
-        self, info, username: str, email: str, password: str, **kwargs
-    ) -> "CreateUser":
+        self, info: ResolveInfo, username: str, email: str, password: str, **kwargs
+    ) -> "CreateUser": # pylint: disable=no-self-use
         """
         Creates a user in the database using the data sent by the user.
 
-        :param info :type ...
+        :param info :type ResolveInfo
         :param username :type str: user's username
         :param email :type str: user's email
         :param password :type str: user's unhashed password
@@ -60,7 +61,7 @@ class CreateRole(SurrogatePK, Mutation):
 
         name = String()
 
-    def mutate(self, info, name: str, **kwargs) -> "CreateRole":
+    def mutate(self, info: ResolveInfo, name: str, **kwargs) -> "CreateRole": # pylint: disable=no-self-use
         """
         Creates a user in the database using the data sent by the user.
 

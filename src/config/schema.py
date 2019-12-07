@@ -11,13 +11,9 @@ from src.user.query import Query as UserQuery
 class Query(UserQuery, TokenQuery, ObjectType):
     """All GraphQL Queries in project."""
 
-    pass
-
 
 class Mutation(UserMutation, TokenMutation, ObjectType):
     """All GraphQL Mutations in project."""
-
-    pass
 
 
 SCHEMA = Schema(query=Query, mutation=Mutation)
