@@ -56,8 +56,8 @@ class CRUDMixin:
         return commit and DB.session.commit()
 
 
-class Model(CRUDMixin, DB.Model):
-    """Abstract Base model class that includes CRUD convenience methods."""
+class Model(DB.Model, CRUDMixin):
+    """Abstract Base model class."""
 
     __abstract__ = True
 

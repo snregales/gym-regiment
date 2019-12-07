@@ -3,11 +3,12 @@
 import logging
 import sys
 
-from flask import Flask
+from flask import Flask, redirect, url_for
+from flask_graphql import GraphQLView
 
-from src import graphql
 from src.config.commands import lint, test
-from src.config.extensions import BCRYPT, DB, MIGRATE  # Database extensions
+from src.config.extensions import AUTH, BCRYPT, DB, MIGRATE  # Database extensions
+from src.config.schema import SCHEMA
 from src.user.models import User
 
 
@@ -25,10 +26,30 @@ def create_app(config_object: str = "src.config.settings") -> Flask:
     app.config.from_object(config_object)
     configure_logger(app)
     register_commands(app)
-    register_blueprints(app)
+    register_graphql(app)
     register_extensions(app)
     register_shellcontext(app)
     return app
+
+
+def register_graphql(app: Flask) -> bool:
+    """
+    Register graphql to the flask application.
+
+    this includes view, schema with all register schemas
+    and make index route redirect to /graphql route
+
+    :param app :type Flask: Flask application to add graphql view to
+    :return :type bool: is all extensions registered
+    """
+    app.add_url_rule(
+        "/", view_func=lambda: redirect(url_for("graphql"))
+    )  # register and redirect index route to graphql
+    app.add_url_rule(
+        "/graphql",
+        view_func=GraphQLView.as_view("graphql", schema=SCHEMA, graphiql=True),
+    )  # register graphql
+    return True
 
 
 def register_extensions(app: Flask) -> bool:
@@ -41,6 +62,7 @@ def register_extensions(app: Flask) -> bool:
     DB.init_app(app)
     MIGRATE.init_app(app, DB)
     BCRYPT.init_app(app)
+    AUTH.init_app(app)
     return True
 
 
@@ -53,17 +75,6 @@ def register_shellcontext(app: Flask) -> bool:
     """
 
     app.shell_context_processor(lambda: {"db": DB, "User": User})
-    return True
-
-
-def register_blueprints(app: Flask) -> bool:
-    """
-    Register Flask blueprints.
-
-    :param app :type Flask: Flask application to register blueprints to
-    :return :type bool: True if commands are loaded properly
-    """
-    app.register_blueprint(graphql.views.BP)
     return True
 
 
