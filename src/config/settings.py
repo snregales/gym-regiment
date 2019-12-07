@@ -28,7 +28,7 @@ CACHE_TYPE: str = "simple"  # Can be "memcached", "redis", etc.
 SQLALCHEMY_TRACK_MODIFICATIONS: bool = False
 WEBPACK_MANIFEST_PATH: str = "webpack/manifest.json"
 JWT_SECRET_KEY: str = ENV.str(
-    "JWT_SECRET_KEY"
+    "JWT_SECRET_KEY", default=SECRET_KEY
 )  # If this is not set, we use the flask SECRET_KEY value instead.
 REFRESH_EXP_LENGTH: int = ENV.int("REFRESH_EXP_LENGTH", default=30)
 ACCESS_EXP_LENGTH: int = ENV.int("ACCESS_EXP_LENGTH", default=10)
