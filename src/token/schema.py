@@ -1,7 +1,11 @@
 """Token Schema Module."""
 
+from typing import Union
+
 from flask_graphql_auth import AuthInfoField
-from graphene import ObjectType, String, Union
+from graphene import ObjectType, String
+from graphene import Union as GraphUnion
+from graphql.execution.base import ResolveInfo
 
 
 class MessageField(ObjectType):
@@ -10,7 +14,7 @@ class MessageField(ObjectType):
     message = String()
 
 
-class ProtectedUnion(Union):
+class ProtectedUnion(GraphUnion):
     """ProtectedUnion is a union between MessageField and AuthInfoField."""
 
     class Meta:
@@ -19,13 +23,15 @@ class ProtectedUnion(Union):
         types = (MessageField, AuthInfoField)
 
     @classmethod
-    def resolve_type(cls, instance, info):
+    def resolve_type(
+        cls, instance: Union[MessageField, AuthInfoField], info: ResolveInfo
+    ) -> Union[MessageField, AuthInfoField]:
         """
         Resolve_type is a class method that resolves the type of the object that will be return.
 
         This is done since the object return is not obsolute by this schema function
         :param instance: type: Union[MessageField, AuthInfoField]: object return to the user
-        :param info type:...
+        :param info :type ResolveInfo
         :return the instance type of the object
         """
         return type(instance)

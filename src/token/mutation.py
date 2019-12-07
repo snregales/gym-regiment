@@ -1,4 +1,6 @@
 """Token Mutation Module."""
+import logging
+
 from flask_graphql_auth import (
     create_access_token,
     create_refresh_token,
@@ -7,8 +9,14 @@ from flask_graphql_auth import (
     mutation_header_jwt_required,
 )
 from graphene import Field, Mutation, String
+from graphql.execution.base import ResolveInfo
 
 from .schema import MessageField, ProtectedUnion
+
+logger = logging.getLogger(__name__)
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+logger.addHandler(console)
 
 
 class AuthMutation(Mutation):
@@ -24,12 +32,14 @@ class AuthMutation(Mutation):
         password = String()
 
     @classmethod
-    def mutate(cls, _, info, username, password):
+    def mutate(
+        cls, _, info: ResolveInfo, username: str, password: str
+    ) -> "AuthMutation":
         """
         Mutate is a class method that creates an access and refresh tokens for the given user.
 
         :param _ :type...
-        :param info :type...
+        :param info :type ResolveType
         :param username :type str: User object's username
         :param password :type str: User object's password
         :return :type AuthMutation (self)
@@ -56,12 +66,12 @@ class ProtectedMutation(Mutation):
 
     @classmethod
     @mutation_header_jwt_required
-    def mutate(cls, _, info):
+    def mutate(cls, _, info: ResolveInfo) -> "ProtectedMutation":
         """
         Mutation class method, authentication is required to access method.
 
         :param _ :type...
-        :param info :type...
+        :param info :type ResolveType
         :return :type ProtectedMutation (self)
         """
         return ProtectedMutation(
