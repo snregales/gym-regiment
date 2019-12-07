@@ -61,11 +61,9 @@ class CreateRole(SurrogatePK, Mutation):
         """Data you can send to the server."""
 
         name = String()
-    
+
     # pylint: disable=no-self-use
-    def mutate(
-        self, info: ResolveInfo, name: str, **kwargs
-    ) -> "CreateRole":
+    def mutate(self, info: ResolveInfo, name: str, **kwargs) -> "CreateRole":
         """
         Creates a user in the database using the data sent by the user.
 
