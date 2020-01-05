@@ -11,42 +11,32 @@ class CreateUser(SurrogatePK, Mutation):
 
     # Data the server can send back to the client.
     id = String()  # id is shadowing build in python key id
-    username = String()
     email = String()
-    first_name = String()
-    last_name = String()
 
     class Arguments:
         """Data you can send to the server."""
 
         password = String()
-        username = String()
         email = String()
-        first_name = String()
-        last_name = String()
 
     # pylint: disable=no-self-use
     def mutate(
-        self, info: ResolveInfo, username: str, email: str, password: str, **kwargs
+        self, info: ResolveInfo, email: str, password: str, **kwargs
     ) -> "CreateUser":
         """
         Creates a user in the database using the data sent by the user.
 
         :param info :type ResolveInfo
-        :param username :type str: user's username
         :param email :type str: user's email
         :param password :type str: user's unhashed password
         :return :type CreateUser
         """
-        user = User(username=username, email=email, password=password, **kwargs)
+        user = User(email=email, password=password, **kwargs)
         user.save()
 
         return CreateUser(
             id=user.id,
-            username=user.username,
             email=user.email,
-            first_name=user.first_name,
-            last_name=user.last_name,
         )
 
 
@@ -77,8 +67,28 @@ class CreateRole(SurrogatePK, Mutation):
         return CreateRole(id=role.id, name=role.name)
 
 
+class ChangePassword(Mutation):
+    """Mutation class for changing password."""
+
+    # Data the server can send back to the client.
+    message = String()
+
+    class Arguments:
+        """Data you can send to the server."""
+
+        current_password = String()
+        new_password = String()
+
+    # pylint: disable=no-self-use
+    def mutate(
+        self, info: ResolveInfo, current_password: str, new_password: str
+    ) -> str:
+        """Change a user's password."""
+
+
 class Mutations:
     """Mutations used for user module."""
 
     create_user = CreateUser.Field()
     create_role = CreateRole.Field()
+    change_password = ChangePassword.Field()
