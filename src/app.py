@@ -7,7 +7,7 @@ from flask import Flask, redirect, url_for
 from flask_graphql import GraphQLView
 
 from src.config.commands import lint, test
-from src.config.extensions import AUTH, BCRYPT, DB, MIGRATE  # Database extensions
+from src.config.extensions import AUTH, MIGRATE, bcrypt, db  # Database extensions
 from src.config.schema import SCHEMA
 from src.user.models import User
 
@@ -59,9 +59,9 @@ def register_extensions(app: Flask) -> bool:
     :param app :type Flask: Flask application to register blueprints to
     :return :type bool: is all extensions registered
     """
-    DB.init_app(app)
-    MIGRATE.init_app(app, DB)
-    BCRYPT.init_app(app)
+    db.init_app(app)
+    MIGRATE.init_app(app, db)
+    bcrypt.init_app(app)
     AUTH.init_app(app)
     return True
 
@@ -74,7 +74,7 @@ def register_shellcontext(app: Flask) -> bool:
     :return :type bool: is all contexts registered
     """
 
-    app.shell_context_processor(lambda: {"db": DB, "User": User})
+    app.shell_context_processor(lambda: {"db": db, "User": User})
     return True
 
 
