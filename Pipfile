@@ -65,7 +65,8 @@ db = "flask db"
 migrate = "flask db migrate"
 upgrade = "flask db upgrade"
 lint = "flask lint"
-tests = "flask test" 
+tests = "flask test"
+server = "gunicorn autoapp:APP -b localhost:4222"
 
 [requires]
 python_version = "3.7"
