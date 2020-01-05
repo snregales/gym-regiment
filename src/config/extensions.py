@@ -13,10 +13,10 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 
-BCRYPT = Bcrypt()
-CSRF = CSRFProtect()
+bcrypt = Bcrypt()
+csrf = CSRFProtect()
 LOGIN = LoginManager()
-DB = SQLAlchemy()
+db = SQLAlchemy()
 MIGRATE = Migrate()
 CACHE = Cache()
 DEBUG = DebugToolbarExtension()

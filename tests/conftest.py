@@ -8,7 +8,7 @@ from flask import Flask
 from webtest import TestApp
 
 from src.app import create_app
-from src.config.database import DB
+from src.config.database import db as _db
 from tests.config.factories import UserFactory
 
 
@@ -30,28 +30,36 @@ def testapp(app: Flask) -> TestApp:  # pylint: disable=redefined-outer-name
     """
     Create Webtest app.
 
-    :param app :type Flask: WGSI application to be use for testing purposes
+    :param app :type Flask: WGSI test application
     """
     return TestApp(app)
 
 
 @pytest.fixture
-def db(app):  # pylint: disable=redefined-outer-name
-    """Create database for the tests."""
-    DB.app = app
+def db(app: Flask):  # pylint: disable=redefined-outer-name
+    """
+    Create database for the tests.
+    
+    :param app :type Flask: WGSI test application
+    """
+    _db.app = app
     with app.app_context():
-        DB.create_all()
+        _db.create_all()
 
-    yield DB
+    yield _db
 
-    # Explicitly close DB connection
-    DB.session.close()
-    DB.drop_all()
+    # Explicitly close db connection
+    _db.session.close()
+    _db.drop_all()
 
 
 @pytest.fixture
 def user(db) -> UserFactory:  # pylint: disable=redefined-outer-name
-    """Create user for the tests."""
+    """
+    Create user for the tests.
+    
+    :param db :type SQLAlchemy; test database
+    """
     _user = UserFactory(password="myprecious")
     db.session.commit()
     return _user

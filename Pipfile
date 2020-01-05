@@ -60,5 +60,12 @@ gevent = "==1.4.0"
 gunicorn = ">=19.1.1"
 supervisor = "==4.1.0"
 
+[scripts]
+db = "flask db"
+migrate = "flask db migrate"
+upgrade = "flask db upgrade"
+lint = "flask lint"
+tests = "flask test" 
+
 [requires]
 python_version = "3.7"
