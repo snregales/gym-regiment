@@ -67,8 +67,28 @@ class CreateRole(SurrogatePK, Mutation):
         return CreateRole(id=role.id, name=role.name)
 
 
+class ChangePassword(Mutation):
+    """Mutation class for changing password."""
+
+    # Data the server can send back to the client.
+    message = String()
+
+    class Arguments:
+        """Data you can send to the server."""
+
+        current_password = String()
+        new_password = String()
+
+    # pylint: disable=no-self-use
+    def mutate(
+        self, info: ResolveInfo, current_password: str, new_password: str
+    ) -> str:
+        """Change a user's password."""
+
+
 class Mutations:
     """Mutations used for user module."""
 
     create_user = CreateUser.Field()
     create_role = CreateRole.Field()
+    change_password = ChangePassword.Field()
