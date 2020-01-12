@@ -11,6 +11,7 @@ from src.user.query import Query as UserQuery
 
 class Query(UserQuery, TokenQuery, ObjectType):
     """All GraphQL Queries in project."""
+
     node = Node.Field()
 
 
