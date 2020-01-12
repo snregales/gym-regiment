@@ -34,10 +34,7 @@ class CreateUser(SurrogatePK, Mutation):
         user = User(email=email, password=password, **kwargs)
         user.save()
 
-        return CreateUser(
-            id=user.id,
-            email=user.email,
-        )
+        return CreateUser(id=user.id, email=user.email)
 
 
 class CreateRole(SurrogatePK, Mutation):

@@ -32,9 +32,7 @@ class AuthMutation(Mutation):
         password = String()
 
     @classmethod
-    def mutate(
-        cls, _, info: ResolveInfo, email: str, password: str
-    ) -> "AuthMutation":
+    def mutate(cls, _, info: ResolveInfo, email: str, password: str) -> "AuthMutation":
         """
         Mutate is a class method that creates an access and refresh tokens for the given user.
 

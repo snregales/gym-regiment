@@ -5,7 +5,6 @@ from graphene_sqlalchemy import SQLAlchemyObjectType
 
 from src.user.models import Role as RoleModel
 from src.user.models import User as UserModel
-
 from src.utils.node import NodeMeta
 
 

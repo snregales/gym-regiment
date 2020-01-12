@@ -8,8 +8,6 @@ from graphene import Field
 from graphene_sqlalchemy import SQLAlchemyConnectionField
 from graphql.execution.base import ResolveInfo
 
-from src.utils.node import NodeQuery
-
 from .models import User as UserModel
 from .schema import RoleConnection, User, UserConnection
 
@@ -19,12 +17,11 @@ console.setLevel(logging.INFO)
 logger.addHandler(console)
 
 
-class Query(NodeQuery):
+class Query:
     """All querable schemas are register here."""
 
     me = Field(User)
-    users = SQLAlchemyConnectionField(UserConnection) 
-    # roles = SQLAlchemyConnectionField(RoleConnection) 
+    users = SQLAlchemyConnectionField(UserConnection)
 
     # pylint: disable=no-self-use
     @query_header_jwt_required
