@@ -67,6 +67,7 @@ upgrade = "flask db upgrade"
 lint = "flask lint"
 tests = "flask test"
 server = "gunicorn autoapp:APP -b localhost:4222"
+shell = "flask shell"
 
 [requires]
 python_version = "3.7"
