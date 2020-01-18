@@ -4,7 +4,7 @@ from factory import PostGenerationMethodCall, Sequence, SubFactory
 from factory.alchemy import SQLAlchemyModelFactory
 
 from src.config.database import db
-from src.user.models import User, Vouch
+from src.user.models import User, Voucher
 
 
 class BaseFactory(SQLAlchemyModelFactory):
@@ -16,15 +16,16 @@ class BaseFactory(SQLAlchemyModelFactory):
         abstract = True
         sqlalchemy_session = db.session
 
-class VouchFactory(BaseFactory):
-    """Vouch factory."""
+
+class VoucherFactory(BaseFactory):
+    """Voucher factory."""
 
     password = PostGenerationMethodCall("set_password", "example")
 
     class Meta:
         """Factory configuration."""
 
-        model = Vouch
+        model = Voucher
 
 
 class UserFactory(BaseFactory):
@@ -33,7 +34,7 @@ class UserFactory(BaseFactory):
     # username = Sequence(lambda n: f"user{n}")
     email = Sequence(lambda n: f"user{n}@example.com")
     # password = "example"
-    vouch = SubFactory(VouchFactory)
+    voucher = SubFactory(VoucherFactory)
     is_active = True
 
     class Meta:  # pylint: disable=too-few-public-methods
