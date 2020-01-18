@@ -4,6 +4,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+# General
+ipython = "*"
+flask-shell-ipython = "*"
 # Testing
 pytest = ">=5.2.2"
 pytest-cov = "*"

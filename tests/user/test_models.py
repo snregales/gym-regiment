@@ -4,8 +4,10 @@ import datetime as dt
 
 import pytest
 
-from src.user.models import Role, User
-from tests.config.factories import UserFactory
+from src.user.models import Role, User, Vouch
+from tests.config.factories import UserFactory, VouchFactory
+
+from . import PASSWORD
 
 
 @pytest.mark.usefixtures("db")
@@ -27,11 +29,11 @@ class TestUser:
         assert bool(user.created_at)
         assert isinstance(user.created_at, dt.datetime)
 
-    def test_password_is_nullable(self) -> None:
+    def test_vouch_is_nullable(self) -> None:
         """Test null password."""
         user = User(email="foo@bar.com")
         user.save()
-        assert user.password is None
+        assert user.vouch is None
 
     def test_factory(self, db) -> None:
         """
@@ -39,19 +41,23 @@ class TestUser:
 
         :param db :type fixture
         """
-        user = UserFactory(password="myprecious")
+        user = UserFactory(vouch__password=PASSWORD)
+        # user.vouch = VouchFactory(password=password)
         db.session.commit()
         assert bool(user.email)
         assert bool(user.created_at)
-        assert user.is_admin is False
-        assert user.is_active is True
-        assert user.check_password("myprecious")
+        assert not user.is_admin
+        assert user.is_active
+        assert user.vouch.check_password(PASSWORD)
 
     def test_check_password(self) -> None:
         """Check password."""
-        user = User.create(email="foo@bar.com", password="foobarbaz123")
-        assert user.check_password("foobarbaz123") is True
-        assert user.check_password("barfoobaz") is False
+        user = User.create(email="foo@bar.com")
+        user.vouch = Vouch(password=PASSWORD)
+        assert user.has_password
+        check_pass = user.vouch.check_password
+        assert check_pass(PASSWORD)
+        assert not check_pass("barfoobaz")
 
     # def test_full_name(self) -> None:
     # """User full name."""
