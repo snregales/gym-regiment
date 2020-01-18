@@ -1,7 +1,6 @@
 """User query module."""
 
 import logging
-from typing import List
 
 from flask_graphql_auth import get_jwt_identity, query_header_jwt_required
 from graphene import Field
@@ -9,7 +8,7 @@ from graphene_sqlalchemy import SQLAlchemyConnectionField
 from graphql.execution.base import ResolveInfo
 
 from .models import User as UserModel
-from .schema import RoleConnection, User, UserConnection
+from .schema import User, UserConnection
 
 logger = logging.getLogger(__name__)
 console = logging.StreamHandler()

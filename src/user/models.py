@@ -10,16 +10,16 @@ from src.config.database import reference_col, relationship
 from src.config.database import unique_column as unique
 from src.config.extensions import bcrypt
 
-from .utils import generate_reset_key, is_key_valid
+from .utils import generate_reset_key, has_expired
 
 
 class Role(SurrogatePK, Model):
     """A role for a user."""
 
     __tablename__ = "roles"
-    
+
     name = unique(db.String(80))
-    
+
     user_id = reference_col(tablename="users", nullable=True)
     user = relationship("User", backref="roles")
 
@@ -36,29 +36,38 @@ class Role(SurrogatePK, Model):
         return f"<{self.__class__.__name__}({self.name})>"
 
 
-class Vouch(SurrogatePK, Model):
-    __tablename__ = "vouches"
+class Voucher(SurrogatePK, Model):
+    """
+    Voucher Class.
 
-    password = nullable(db.LargeBinary(128)) 
+    Contains all off users secret credentials for authentication purposes.
+    """
+
+    __tablename__ = "vouchers"
+
+    password = nullable(db.LargeBinary(128))
     password_last_set = nullable(db.DateTime)
     reset_key = nullable(db.String(16), unique=True)
     key_generated_date = nullable(db.DateTime)
 
     def __init__(self, password: str = None, **kwargs):
+        """Voucher constructor."""
         db.Model.__init__(self, **kwargs)
         if password:
             self.set_password(password)
             self.password_last_set = dt.datetime.now()
 
     @property
-    def is_reset_key_valid(self):
-        return is_key_valid(self.key_generated_date)
+    def has_reset_key_expired(self) -> bool:
+        """Has reset key expired."""
+        return has_expired(self.key_generated_date)
 
-    def set_reset_key(self):
-        self.reset_key = generate_reset_key() 
+    def set_reset_key(self) -> None:
+        """Reset key setter."""
+        self.reset_key = generate_reset_key()
         self.key_generated_date = dt.datetime.now()
 
-    def set_password(self, password: str):
+    def set_password(self, password: str) -> None:
         """
         Set hashed password.
 
@@ -98,10 +107,10 @@ class User(UserMixin, SurrogatePK, Model):
 
     __tablename__ = "users"
     email = unique(db.String(80))
-    
-    vouch_id = reference_col(tablename="vouches", nullable=True)
-    vouch = relationship("Vouch", backref="user", uselist=False)
-    
+
+    voucher_id = reference_col(tablename="vouchers", nullable=True)
+    voucher = relationship("Voucher", backref="user", uselist=False)
+
     created_at = column(db.DateTime, default=dt.datetime.utcnow)
     is_active = column(db.Boolean(), default=False)
     is_admin = column(db.Boolean(), default=False)
@@ -115,18 +124,19 @@ class User(UserMixin, SurrogatePK, Model):
         """
         db.Model.__init__(self, email=email, **kwargs)
         if password:
-            self.vouch = Vouch(password)
+            self.voucher = Voucher(password)
 
     @property
     def _password(self) -> str:
-        if self.vouch:
-            return self.vouch.password
+        if self.voucher:
+            return self.voucher.password
         return None
 
     @property
     def has_password(self) -> bool:
+        """Does User instance have a password."""
         password = self._password
-        return not(password is None or password is '') 
+        return not (password is None or password == "")
 
     def __str__(self) -> str:
         """

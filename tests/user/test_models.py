@@ -4,8 +4,8 @@ import datetime as dt
 
 import pytest
 
-from src.user.models import Role, User, Vouch
-from tests.config.factories import UserFactory, VouchFactory
+from src.user.models import Role, User, Voucher
+from tests.config.factories import UserFactory
 
 from . import PASSWORD
 
@@ -33,7 +33,7 @@ class TestUser:
         """Test null password."""
         user = User(email="foo@bar.com")
         user.save()
-        assert user.vouch is None
+        assert user.voucher is None
 
     def test_factory(self, db) -> None:
         """
@@ -41,21 +41,20 @@ class TestUser:
 
         :param db :type fixture
         """
-        user = UserFactory(vouch__password=PASSWORD)
-        # user.vouch = VouchFactory(password=password)
+        user = UserFactory(voucher__password=PASSWORD)
         db.session.commit()
         assert bool(user.email)
         assert bool(user.created_at)
         assert not user.is_admin
         assert user.is_active
-        assert user.vouch.check_password(PASSWORD)
+        assert user.voucher.check_password(PASSWORD)
 
     def test_check_password(self) -> None:
         """Check password."""
         user = User.create(email="foo@bar.com")
-        user.vouch = Vouch(password=PASSWORD)
+        user.voucher = Voucher(password=PASSWORD)
         assert user.has_password
-        check_pass = user.vouch.check_password
+        check_pass = user.voucher.check_password
         assert check_pass(PASSWORD)
         assert not check_pass("barfoobaz")
 

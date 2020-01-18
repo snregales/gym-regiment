@@ -39,7 +39,7 @@ def testapp(app: Flask) -> TestApp:  # pylint: disable=redefined-outer-name
 def db(app: Flask):  # pylint: disable=redefined-outer-name
     """
     Create database for the tests.
-    
+
     :param app :type Flask: WGSI test application
     """
     _db.app = app
@@ -57,7 +57,7 @@ def db(app: Flask):  # pylint: disable=redefined-outer-name
 def user(db) -> UserFactory:  # pylint: disable=redefined-outer-name
     """
     Create user for the tests.
-    
+
     :param db :type SQLAlchemy; test database
     """
     _user = UserFactory(password="myprecious")

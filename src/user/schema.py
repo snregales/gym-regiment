@@ -18,7 +18,11 @@ class User(SQLAlchemyObjectType):
 
 
 class UserConnection(Connection):
+    """User connection schema, inherits from relay.Connection."""
+
     class Meta:
+        """User Schema Meta class."""
+
         node = User
 
 
@@ -32,5 +36,9 @@ class Role(SQLAlchemyObjectType):
 
 
 class RoleConnection(Connection):
+    """Role Connection Schema, inherits from relay.Connection."""
+
     class Meta:
+        """Role Schema Meta class."""
+
         node = Role
