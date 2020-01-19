@@ -28,6 +28,12 @@ class VoucherFactory(BaseFactory):
         model = Voucher
 
 
+class ResetKeyFactory(VoucherFactory):
+    """Voucher's reset key Factory."""
+
+    reset_key = PostGenerationMethodCall("set_reset_key")
+
+
 class UserFactory(BaseFactory):
     """User factory."""
 

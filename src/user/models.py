@@ -55,7 +55,6 @@ class Voucher(SurrogatePK, Model):
         db.Model.__init__(self, **kwargs)
         if password:
             self.set_password(password)
-            self.password_last_set = dt.datetime.now()
 
     @property
     def has_reset_key_expired(self) -> bool:
@@ -69,11 +68,12 @@ class Voucher(SurrogatePK, Model):
 
     def set_password(self, password: str) -> None:
         """
-        Set hashed password.
+        Set hashed password, and password creation date.
 
         :param password :type str: none hashed version of user's password
         """
         self.password = bcrypt.generate_password_hash(password)
+        self.password_last_set = dt.datetime.now()
 
     def check_password(self, value) -> bool:
         """
