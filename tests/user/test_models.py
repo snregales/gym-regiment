@@ -4,17 +4,27 @@ import datetime as dt
 
 import pytest
 
-from src.user.models import Role, User
+from src.user.models import Role, User, Voucher
 from tests.config.factories import UserFactory
+
+from . import PASSWORD
 
 
 @pytest.mark.usefixtures("db")
 class TestUser:
     """User tests."""
 
+    @property
+    def _foo_user(self) -> User:
+        """Creates and saves foo@bar user."""
+
+        user = User(email="foo@bar.com")
+        user.save()
+        return user
+
     def test_get_by_id(self) -> None:
         """Get user by ID."""
-        user = User("foo", "foo@bar.com")
+        user = User("foo@bar.com")
         user.save()
 
         retrieved = User.get_by_id(user.id)
@@ -22,42 +32,43 @@ class TestUser:
 
     def test_created_at_defaults_to_datetime(self) -> None:
         """Test creation date."""
-        user = User(username="foo", email="foo@bar.com")
-        user.save()
+        user = self._foo_user
         assert bool(user.created_at)
         assert isinstance(user.created_at, dt.datetime)
 
-    def test_password_is_nullable(self) -> None:
+    def test_vouch_is_nullable(self) -> None:
         """Test null password."""
-        user = User(username="foo", email="foo@bar.com")
-        user.save()
-        assert user.password is None
-
-    def test_factory(self, db) -> None:
-        """
-        Test user factory.
-
-        :param db :type fixture
-        """
-        user = UserFactory(password="myprecious")
-        db.session.commit()
-        assert bool(user.username)
-        assert bool(user.email)
-        assert bool(user.created_at)
-        assert user.is_admin is False
-        assert user.active is True
-        assert user.check_password("myprecious")
+        user = self._foo_user
+        assert user.voucher is None
 
     def test_check_password(self) -> None:
         """Check password."""
-        user = User.create(username="foo", email="foo@bar.com", password="foobarbaz123")
-        assert user.check_password("foobarbaz123") is True
-        assert user.check_password("barfoobaz") is False
+        user = self._foo_user
+        user.voucher = Voucher(password=PASSWORD)
+        assert not bool(user.voucher.reset_key)
+        assert not bool(user.voucher.key_generated_date)
+        assert user.has_password
+        check_pass = user.voucher.check_password
+        assert check_pass(PASSWORD)
+        assert bool(user.voucher.password_last_set)
+        assert user.voucher.password_last_set.date() == dt.datetime.now().date()
+        assert not check_pass("barfoobaz")
 
-    def test_full_name(self) -> None:
-        """User full name."""
-        user = UserFactory(first_name="Foo", last_name="Bar")
-        assert user.full_name == "Foo Bar"
+    def test_reset_key(self) -> None:
+        """Check reset key."""
+        user = self._foo_user
+        user.voucher = Voucher()
+        user.voucher.set_reset_key()
+        assert not user.has_password
+        assert not bool(user.voucher.password_last_set)
+        assert bool(user.voucher.reset_key)
+        assert bool(user.voucher.key_generated_date)
+        assert user.voucher.key_generated_date.date() == dt.datetime.now().date()
+
+    # def test_full_name(self) -> None:
+    # """User full name."""
+    # user = UserFactory(first_name="Foo", last_name="Bar")
+    # assert user.full_name == "Foo Bar"
 
     def test_roles(self) -> None:
         """Add a role to a user."""

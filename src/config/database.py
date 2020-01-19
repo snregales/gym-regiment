@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 """Database module, including the SQLAlchemy database object and DB-related utilities."""
+
+from functools import partial
 from typing import Any
 
-from src.config.extensions import DB
+from src.config.extensions import db
 
 # Alias common SQLAlchemy names
-COLUMN = DB.Column
-RELATIONSHIP = DB.relationship
+column = db.Column
+relationship = db.relationship
+null_column = partial(db.Column, nullable=True)
+unique_column = partial(db.Column, unique=True)
+primary_column = partial(db.Column, primary_key=True)
 
 
 class CRUDMixin:
@@ -40,9 +45,9 @@ class CRUDMixin:
         :param commit :type bool: commit operation to session :default True
         :return :type CRUDMixin
         """
-        DB.session.add(self)
+        db.session.add(self)
         if commit:
-            DB.session.commit()
+            db.session.commit()
         return self
 
     def delete(self, commit=True) -> bool:
@@ -52,11 +57,11 @@ class CRUDMixin:
         :param commit :type bool: commit operation to session :default True
         :return :type bool: is operation run successfully
         """
-        DB.session.delete(self)
-        return commit and DB.session.commit()
+        db.session.delete(self)
+        return commit and db.session.commit()
 
 
-class Model(DB.Model, CRUDMixin):
+class Model(db.Model, CRUDMixin):
     """Abstract Base model class."""
 
     __abstract__ = True
@@ -69,7 +74,7 @@ class SurrogatePK:
 
     __table_args__ = {"extend_existing": True}
 
-    id = COLUMN(DB.Integer, primary_key=True)
+    id = primary_column(db.Integer)
 
     @classmethod
     def get_by_id(cls, record_id: Any):
@@ -97,8 +102,8 @@ def reference_col(
     foreign_key_kwargs = foreign_key_kwargs or {}
     column_kwargs = column_kwargs or {}
 
-    return COLUMN(
-        DB.ForeignKey("{0}.{1}".format(tablename, pk_name), **foreign_key_kwargs),
+    return column(
+        db.ForeignKey("{0}.{1}".format(tablename, pk_name), **foreign_key_kwargs),
         nullable=nullable,
         **column_kwargs
     )

@@ -4,6 +4,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+# General
+ipython = "*"
+flask-shell-ipython = "*"
 # Testing
 pytest = ">=5.2.2"
 pytest-cov = "*"
@@ -59,6 +62,15 @@ environs = "==6.0.0"
 gevent = "==1.4.0"
 gunicorn = ">=19.1.1"
 supervisor = "==4.1.0"
+
+[scripts]
+db = "flask db"
+migrate = "flask db migrate"
+upgrade = "flask db upgrade"
+lint = "flask lint"
+tests = "flask test"
+server = "gunicorn autoapp:APP -b localhost:4222"
+shell = "flask shell"
 
 [requires]
 python_version = "3.7"
