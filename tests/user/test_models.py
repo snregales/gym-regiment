@@ -35,20 +35,6 @@ class TestUser:
         user.save()
         assert user.voucher is None
 
-    def test_factory(self, db) -> None:
-        """
-        Test user factory.
-
-        :param db :type fixture
-        """
-        user = UserFactory(voucher__password=PASSWORD)
-        db.session.commit()
-        assert bool(user.email)
-        assert bool(user.created_at)
-        assert not user.is_admin
-        assert user.is_active
-        assert user.voucher.check_password(PASSWORD)
-
     def test_check_password(self) -> None:
         """Check password."""
         user = User.create(email="foo@bar.com")
