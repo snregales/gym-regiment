@@ -14,6 +14,14 @@ from . import PASSWORD
 class TestUser:
     """User tests."""
 
+    @property
+    def _foo_user(self) -> User:
+        """Creates and saves foo@bar user."""
+
+        user = User(email="foo@bar.com")
+        user.save()
+        return user
+
     def test_get_by_id(self) -> None:
         """Get user by ID."""
         user = User("foo@bar.com")
@@ -24,25 +32,38 @@ class TestUser:
 
     def test_created_at_defaults_to_datetime(self) -> None:
         """Test creation date."""
-        user = User(email="foo@bar.com")
-        user.save()
+        user = self._foo_user
         assert bool(user.created_at)
         assert isinstance(user.created_at, dt.datetime)
 
     def test_vouch_is_nullable(self) -> None:
         """Test null password."""
-        user = User(email="foo@bar.com")
-        user.save()
+        user = self._foo_user
         assert user.voucher is None
 
     def test_check_password(self) -> None:
         """Check password."""
-        user = User.create(email="foo@bar.com")
+        user = self._foo_user
         user.voucher = Voucher(password=PASSWORD)
+        assert not bool(user.voucher.reset_key)
+        assert not bool(user.voucher.key_generated_date)
         assert user.has_password
         check_pass = user.voucher.check_password
         assert check_pass(PASSWORD)
+        assert bool(user.voucher.password_last_set)
+        assert user.voucher.password_last_set.date() == dt.datetime.now().date()
         assert not check_pass("barfoobaz")
+
+    def test_reset_key(self) -> None:
+        """Check reset key."""
+        user = self._foo_user
+        user.voucher = Voucher()
+        user.voucher.set_reset_key()
+        assert not user.has_password
+        assert not bool(user.voucher.password_last_set)
+        assert bool(user.voucher.reset_key)
+        assert bool(user.voucher.key_generated_date)
+        assert user.voucher.key_generated_date.date() == dt.datetime.now().date()
 
     # def test_full_name(self) -> None:
     # """User full name."""

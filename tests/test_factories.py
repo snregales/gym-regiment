@@ -26,7 +26,7 @@ class TestFactory:
         assert not user.is_admin
         assert user.is_active
 
-    def test_voucher_factory(self, db):
+    def test_voucher_factory(self, db) -> None:
         """
         Test voucher factory.
 
@@ -41,7 +41,7 @@ class TestFactory:
         assert not bool(voucher.reset_key)
         assert not bool(voucher.key_generated_date)
 
-    def test_reset_key_factory(self, db):
+    def test_reset_key_factory(self, db) -> None:
         """
         Test Reset Key Factory.
 
