@@ -15,7 +15,7 @@ class Account(SurrogatePK, Model):
 
     first_name = column(db.String(30))
     last_name = column(db.String(30))
-    phone_number = nullable(db.Integer(14))
+    phone_number = nullable(db.Integer())
 
     def __init__(self, name: str, **kwargs) -> None:
         """
