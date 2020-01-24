@@ -31,9 +31,18 @@ class Role(SurrogatePK, Model):
         """
         db.Model.__init__(self, name=name, **kwargs)
 
+    def __str__(self) -> str:
+        """
+        String representation.
+    
+        :return :type str
+        """
+    
+        return self.name 
+
     def __repr__(self):
         """Represent instance as a unique string."""
-        return f"<{self.__class__.__name__}({self.name})>"
+        return f"<{self.__class__.__name__}({self.__str__()!r})>"
 
 
 class Voucher(SurrogatePK, Model):
