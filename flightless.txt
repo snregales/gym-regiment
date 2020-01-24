@@ -6,7 +6,7 @@ Anas aucklandica *
 Anas nesiotis *
 Aptenodytes forsteri *
 Aptenodytes patagonicus *
-Apteryx australis
+Apteryx australi *
 Apteryx haastil
 Apteryx mantelli
 Apteryx owenii
