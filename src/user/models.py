@@ -34,11 +34,11 @@ class Role(SurrogatePK, Model):
     def __str__(self) -> str:
         """
         String representation.
-    
+
         :return :type str
         """
-    
-        return self.name 
+
+        return self.name
 
     def __repr__(self):
         """Represent instance as a unique string."""
