@@ -10,6 +10,7 @@ from src.config.commands import lint, test
 from src.config.extensions import AUTH, MIGRATE, bcrypt, db  # Database extensions
 from src.config.schema import SCHEMA
 from src.user.models import User
+from src.account.models import Account
 
 
 def create_app(config_object: str = "src.config.settings") -> Flask:
@@ -74,7 +75,7 @@ def register_shellcontext(app: Flask) -> bool:
     :return :type bool: is all contexts registered
     """
 
-    app.shell_context_processor(lambda: {"db": db, "User": User})
+    app.shell_context_processor(lambda: {"db": db, "User": User, "Account": Account})
     return True
 
 
