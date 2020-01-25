@@ -1,12 +1,13 @@
 """Account's models module."""
 
-from datetime import date
+from sqlalchemy_utils import ChoiceType
 
 from src.config.database import Model, SurrogatePK, column, db
 from src.config.database import null_column as nullable
 from src.config.database import reference_col, relationship
 
-from . import KG_TO_LB, M_TO_FT
+from . import Sex
+from .utils import body_mass_index, calculate_age, kilogram_to_pound, meter_to_feet
 
 
 class BioMetric(SurrogatePK, Model):
@@ -20,27 +21,27 @@ class BioMetric(SurrogatePK, Model):
 
     height = column(db.Float())  # height in Meters
     weight = column(db.Float())  # weight in KiloGrams
+    sex = column(ChoiceType(Sex, impl=db.Integer()))
 
     @property
     def bmi(self) -> float:
         """Users body mass index."""
-        return self.weight / pow(self.height, 2)
+        return body_mass_index(self.weight, self.height)
 
     @property
     def age(self) -> int:
         """Users age."""
-        today, dob = date.today(), self.account.dob
-        return today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+        return calculate_age(self.account.dob)
 
     @property
     def height_in_feet(self) -> float:
         """Impirical form of users height (Feet)."""
-        return self.height * M_TO_FT
+        return meter_to_feet(self.height)
 
     @property
     def weight_in_pounds(self) -> float:
         """Impirical form of users weight (pounds)."""
-        return self.weight * KG_TO_LB
+        return kilogram_to_pound(self.weight)
 
 
 class Account(SurrogatePK, Model):
