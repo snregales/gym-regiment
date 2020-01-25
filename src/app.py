@@ -6,11 +6,11 @@ import sys
 from flask import Flask, redirect, url_for
 from flask_graphql import GraphQLView
 
+from src.account.models import Account
 from src.config.commands import lint, test
-from src.config.extensions import AUTH, MIGRATE, bcrypt, db  # Database extensions
+from src.config.extensions import auth, bcrypt, db, debug, migrate
 from src.config.schema import SCHEMA
 from src.user.models import User
-from src.account.models import Account
 
 
 def create_app(config_object: str = "src.config.settings") -> Flask:
@@ -61,9 +61,10 @@ def register_extensions(app: Flask) -> bool:
     :return :type bool: is all extensions registered
     """
     db.init_app(app)
-    MIGRATE.init_app(app, db)
+    migrate.init_app(app, db)
     bcrypt.init_app(app)
-    AUTH.init_app(app)
+    auth.init_app(app)
+    debug.init_app(app)
     return True
 
 
