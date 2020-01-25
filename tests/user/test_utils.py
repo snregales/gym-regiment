@@ -1,4 +1,5 @@
 """Test User Utils."""
+
 from datetime import datetime, timedelta
 
 import pytest
@@ -12,7 +13,7 @@ def test_generate_reset_key_not_equal() -> None:
     assert generate_reset_key() != generate_reset_key()
 
 
-def test_generate_reset_key():
+def test_generate_reset_key() -> None:
     """Test if the reset key is properly generated."""
     key = generate_reset_key()
     assert len(key) == 16
@@ -32,6 +33,6 @@ now = datetime.now()
         (now + timedelta(days=1), False),
     ],
 )
-def test_has_expired(date: datetime, expected: bool):
+def test_has_expired(date: datetime, expected: bool) -> None:
     """Test that key satisfies all the meta atributes."""
     assert has_expired(date) == expected
