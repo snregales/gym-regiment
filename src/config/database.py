@@ -89,6 +89,12 @@ class SurrogatePK:
         return None
 
 
+class PKModel(SurrogatePK, Model):
+    """Abstract Surrogated Base model class."""
+    
+    __abstract__ = True
+    
+
 def reference_col(
     tablename, nullable=False, pk_name="id", foreign_key_kwargs=None, column_kwargs=None
 ):
