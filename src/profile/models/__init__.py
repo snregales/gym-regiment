@@ -1,5 +1,4 @@
 """Account's models module."""
 
-# pylint: disable=unused-import
-from .account import Account
-from .biometric import BioMetric
+from .account import Account  # noqa: F401
+from .biometric import BioMetric  # noqa: F401
