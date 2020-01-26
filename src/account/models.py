@@ -24,14 +24,18 @@ class BioMetric(SurrogatePK, Model):
     sex = column(ChoiceType(Sex, impl=db.Integer()))
 
     @property
+    def has_account(self) -> bool:
+        return bool(self.account)
+
+    @property
     def bmi(self) -> float:
         """Users body mass index."""
-        return body_mass_index(self.weight, self.height)
+        return body_mass_index(weight=self.weight, height=self.height)
 
     @property
     def age(self) -> int:
         """Users age."""
-        return calculate_age(self.account.dob)
+        return calculate_age(self.account.dob) if self.has_account else -1
 
     @property
     def height_in_feet(self) -> float:
