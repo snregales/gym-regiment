@@ -2,7 +2,7 @@
 
 from sqlalchemy_utils import ChoiceType
 
-from src.config.database import Model, SurrogatePK, column, db
+from src.config.database import PKModel as Model, column, db
 from src.config.database import null_column as nullable
 from src.config.database import reference_col, relationship
 
@@ -10,7 +10,7 @@ from . import Sex
 from .utils import body_mass_index, calculate_age, kilogram_to_pound, meter_to_feet
 
 
-class BioMetric(SurrogatePK, Model):
+class BioMetric(Model):
     """
     Accounts metrics.
 
@@ -48,7 +48,7 @@ class BioMetric(SurrogatePK, Model):
         return kilogram_to_pound(self.weight)
 
 
-class Account(SurrogatePK, Model):
+class Account(Model):
     """A user account."""
 
     __tablename__ = "accounts"

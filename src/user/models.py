@@ -4,7 +4,7 @@ import datetime as dt
 
 from flask_login import UserMixin
 
-from src.config.database import Model, SurrogatePK, column, db
+from src.config.database import PKModel as Model, column, db
 from src.config.database import null_column as nullable
 from src.config.database import reference_col, relationship
 from src.config.database import unique_column as unique
@@ -13,7 +13,7 @@ from src.config.extensions import bcrypt
 from .utils import generate_reset_key, has_expired
 
 
-class Role(SurrogatePK, Model):
+class Role(Model):
     """A role for a user."""
 
     __tablename__ = "roles"
@@ -45,7 +45,7 @@ class Role(SurrogatePK, Model):
         return f"<{self.__class__.__name__}({self.__str__()!r})>"
 
 
-class Voucher(SurrogatePK, Model):
+class Voucher(Model):
     """
     Voucher Class.
 
@@ -111,7 +111,7 @@ class Voucher(SurrogatePK, Model):
         return f"<{self.__class__.__name__}({self.__str__()!r})>"
 
 
-class User(UserMixin, SurrogatePK, Model):
+class User(UserMixin, Model):
     """User Model class."""
 
     __tablename__ = "users"
