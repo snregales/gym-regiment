@@ -49,7 +49,7 @@ class Account(SurrogatePK, Model):
 
     __tablename__ = "accounts"
 
-    user_id = reference_col(tablename="users", nullable=True)
+    user_id = reference_col(tablename="users")
     user = relationship("User", backref="account")
 
     biometric_id = reference_col(tablename="biometrics", nullable=True)
