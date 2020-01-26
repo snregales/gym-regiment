@@ -24,11 +24,12 @@ class TestUser:
 
     def test_get_by_id(self) -> None:
         """Get user by ID."""
-        user = User("foo@bar.com")
-        user.save()
-
+        user = self._foo_user
         retrieved = User.get_by_id(user.id)
         assert retrieved == user
+    
+    # def test_email_is_unique(self):
+    #     user = User(email="foo@bar.com")
 
     def test_created_at_defaults_to_datetime(self) -> None:
         """Test creation date."""
