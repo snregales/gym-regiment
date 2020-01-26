@@ -6,10 +6,10 @@ import sys
 from flask import Flask, redirect, url_for
 from flask_graphql import GraphQLView
 
-from src.account.models import Account
 from src.config.commands import lint, test
 from src.config.extensions import auth, bcrypt, db, debug, migrate
 from src.config.schema import SCHEMA
+from src.profile.models import Account
 from src.user.models import User
 
 

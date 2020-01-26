@@ -7,8 +7,8 @@ from random import randint, uniform
 from factory import PostGenerationMethodCall, Sequence, SubFactory
 from factory.alchemy import SQLAlchemyModelFactory
 
-from src.account.models import Account, BioMetric
 from src.config.database import db
+from src.profile.models import Account, BioMetric
 from src.user.models import User, Voucher
 
 

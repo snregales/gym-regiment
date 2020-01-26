@@ -1,2 +1,0 @@
-
-"""Account's models module."""

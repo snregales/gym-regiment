@@ -1,12 +1,16 @@
+"""BioMetric model module."""
+
 from sqlalchemy_utils import ChoiceType
 
-from src.config.database import PKModel as Model, db, column
-from src.account.utils import (
+from src.config.database import PKModel as Model
+from src.config.database import column, db
+from src.profile import Sex
+from src.profile.utils import (
     body_mass_index,
     calculate_age,
+    kilogram_to_pound,
     meter_to_feet,
-    kilogram_to_pound,)
-from src.account import Sex
+)
 
 
 class BioMetric(Model):
@@ -24,6 +28,7 @@ class BioMetric(Model):
 
     @property
     def has_account(self) -> bool:
+        """Is there an account attached to this metric."""
         return bool(self.account)
 
     @property

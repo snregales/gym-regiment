@@ -1,10 +1,9 @@
-from src.config.database import (
-    column,
-    null_column as nullable,
-    db,
-    reference_col,
-    relationship,
-    PKModel as Model,)
+"""Account model module."""
+
+from src.config.database import PKModel as Model
+from src.config.database import column, db
+from src.config.database import null_column as nullable
+from src.config.database import reference_col, relationship
 
 
 class Account(Model):

@@ -3,7 +3,7 @@ from datetime import date, timedelta
 
 import pytest
 
-from src.account.utils import (
+from src.profile.utils import (
     body_mass_index,
     calculate_age,
     kilogram_to_pound,

@@ -2,7 +2,8 @@
 
 from sqlalchemy_utils import ChoiceType
 
-from src.config.database import PKModel as Model, column, db
+from src.config.database import PKModel as Model
+from src.config.database import column, db
 from src.config.database import null_column as nullable
 from src.config.database import reference_col, relationship
 
@@ -25,6 +26,7 @@ class BioMetric(Model):
 
     @property
     def has_account(self) -> bool:
+        """Is there an account attached to this metric."""
         return bool(self.account)
 
     @property

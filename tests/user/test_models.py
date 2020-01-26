@@ -27,7 +27,7 @@ class TestUser:
         user = self._foo_user
         retrieved = User.get_by_id(user.id)
         assert retrieved == user
-    
+
     # def test_email_is_unique(self):
     #     user = User(email="foo@bar.com")
 

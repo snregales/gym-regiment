@@ -4,7 +4,8 @@ import datetime as dt
 
 from flask_login import UserMixin
 
-from src.config.database import PKModel as Model, column, db
+from src.config.database import PKModel as Model
+from src.config.database import column, db
 from src.config.database import null_column as nullable
 from src.config.database import reference_col, relationship
 from src.config.database import unique_column as unique
